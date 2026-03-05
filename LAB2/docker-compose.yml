@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mailserver:
+    image: mailserver/docker-mailserver:latest
+    hostname: mail.example.com
+    container_name: mailserver
+    ports:
+      - "25:25"
+      - "465:465"
+      - "587:587"
+      - "993:993"
+    volumes:
+      - ./data:/var/mail
+      - ./config:/tmp/docker-mailserver/
+    environment:
+      - ENABLE_SPAMASSASSIN=1
+      - ENABLE_CLAMAV=1
+    restart: always
